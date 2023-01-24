@@ -78,6 +78,7 @@ def get_forks(github_repo_name):
 
 
 ## Check
+
 #rep = 'sim0nsays/dlcourse_ai'
 #print (get_repo_details(rep))
 #print(get_pull_requests(rep))
