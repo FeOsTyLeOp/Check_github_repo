@@ -6,6 +6,7 @@ import datetime
 # set up the app
 app = FastAPI()
 
+
 @app.get('/repo-details/{github_repo_name}')
 def get_repo_details(github_repo_name):
     """
@@ -18,6 +19,7 @@ def get_repo_details(github_repo_name):
     repo_details = response.json()
     # return the repo details
     return repo_details
+
 
 @app.get('/pull-requests/{github_repo_name}')
 def get_pull_requests(github_repo_name):
@@ -32,6 +34,7 @@ def get_pull_requests(github_repo_name):
     # return the pull requests
     return pull_requests
 
+
 @app.get('/unmerged-pull-requests/{github_repo_name}')
 def get_unmerged_pull_requests(github_repo_name):
     """
@@ -42,13 +45,15 @@ def get_unmerged_pull_requests(github_repo_name):
     response = requests.get(request_url)
     # get the pull requests from response
     unmerged_pull_requests = response.json()
-#    filter out only the pull requests which have not been merged for two weeks or more
+    #    filter out only the pull requests which have not been merged for two weeks or more
     filtered_unmerged_pull_requests = []
     for pull_request in unmerged_pull_requests:
-        if datetime.datetime.strptime(pull_request['updated_at'], "%Y-%m-%dT%H:%M:%SZ") > (datetime.datetime.now() - datetime.timedelta(days=14)):
+        if datetime.datetime.strptime(pull_request['updated_at'], "%Y-%m-%dT%H:%M:%SZ") > (
+                datetime.datetime.now() - datetime.timedelta(days=14)):
             filtered_unmerged_pull_requests.append(pull_request)
     # return the unmerged pull requests
     return filtered_unmerged_pull_requests
+
 
 @app.get('/issues/{github_repo_name}')
 def get_issues(github_repo_name):
@@ -63,6 +68,7 @@ def get_issues(github_repo_name):
     # return the issues
     return issues
 
+
 @app.get('/forks/{github_repo_name}')
 def get_forks(github_repo_name):
     """
@@ -76,12 +82,11 @@ def get_forks(github_repo_name):
     # return the forks
     return forks
 
-
 ## Check
 
-#rep = 'sim0nsays/dlcourse_ai'
-#print (get_repo_details(rep))
-#print(get_pull_requests(rep))
-#print (get_unmerged_pull_requests(rep))
-#print (get_issues(rep))
-#print (get_forks(rep))
+# rep = 'sim0nsays/dlcourse_ai'
+# print (get_repo_details(rep))
+# print(get_pull_requests(rep))
+# print (get_unmerged_pull_requests(rep))
+# print (get_issues(rep))
+# print (get_forks(rep))
