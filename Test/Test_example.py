@@ -9,15 +9,13 @@ def test_get_repo_details(owner, repo):
     result = get_repo_details(owner, repo)
     assert result["name"] == repo
     assert result["owner"]["login"] == owner
-
+    assert result is not None
 
 def test_get_pull_requests():
     # test the get pull requests with valid owner and repo
     owner = "sim0nsays"
     repo = "dlcourse_ai"
     response = get_pull_requests(owner, repo)
-
-
     assert response is not None
 
 
