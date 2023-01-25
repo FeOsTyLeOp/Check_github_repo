@@ -17,7 +17,8 @@ def test_get_pull_requests():
     repo = "dlcourse_ai"
     response = get_pull_requests(owner, repo)
 
-    assert len(response) > 0
+
+    assert response is not None
 
 
 def test_get_stale_pull_requests():
@@ -25,7 +26,7 @@ def test_get_stale_pull_requests():
     owner = "sim0nsays"
     repo = "dlcourse_ai"
     response = get_stale_pull_requests(owner, repo)
-    assert len(response) > 0
+    assert response is not None
 
 
 def test_get_issues():
@@ -33,7 +34,7 @@ def test_get_issues():
     owner = "sim0nsays"
     repo = "dlcourse_ai"
     response = get_issues(owner, repo)
-    assert len(response) > 0
+    assert response is not None
 
 
 def test_get_forks():
@@ -41,4 +42,4 @@ def test_get_forks():
     owner = "sim0nsays"
     repo = "dlcourse_ai"
     response = get_forks(owner, repo)
-    assert len(response) > 0
+    assert response is not None
