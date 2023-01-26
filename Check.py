@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import requests
 import datetime
-
+from loguru import logger
 app = FastAPI()
 
 
@@ -16,6 +16,7 @@ def get_repo_details(owner: str, repo: str):
     """
     url = f"https://api.github.com/repos/{owner}/{repo}"
     response = requests.get(url)
+    logger.info(f"Fetching details for {owner}/{repo}")
     return response.json()
 
 
@@ -30,6 +31,7 @@ def get_pull_requests(owner: str, repo: str):
     """
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls"
     response = requests.get(url)
+    logger.info(f"Fetching pull requests for {owner}/{repo}")
     return response.json()
 
 
@@ -44,6 +46,7 @@ def get_stale_pull_requests(owner: str, repo: str):
     """
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls?state=open&sort=updated&direction=asc"
     response = requests.get(url)
+    logger.info(f"Fetching stale pull requests for {owner}/{repo}")
     return [pull for pull in response.json() if
             (datetime.datetime.now() - datetime.datetime.strptime(pull['updated_at'], "%Y-%m-%dT%H:%M:%SZ")).days > 14]
 
@@ -59,6 +62,7 @@ def get_issues(owner: str, repo: str):
     """
     url = f"https://api.github.com/repos/{owner}/{repo}/issues"
     response = requests.get(url)
+    logger.info(f"Fetching issues for {owner}/{repo}")
     return response.json()
 
 
@@ -73,4 +77,5 @@ def get_forks(owner: str, repo: str):
     """
     url = f"https://api.github.com/repos/{owner}/{repo}/forks"
     response = requests.get(url)
+    logger.info(f"Fetching forks for {owner}/{repo}")
     return response.json()
