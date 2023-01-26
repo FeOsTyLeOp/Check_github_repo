@@ -3,8 +3,14 @@ import datetime
 import uvicorn
 from loguru import logger
 from fastapi import FastAPI
+from starlette.responses import RedirectResponse
 
 app = FastAPI()
+
+
+@app.get("/")
+def root():
+    return RedirectResponse("http://127.0.0.3:8080/docs")
 
 
 @app.get("/github/repo/{owner}/{repo}")
