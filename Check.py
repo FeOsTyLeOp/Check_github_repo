@@ -1,7 +1,9 @@
-from fastapi import FastAPI
 import requests
 import datetime
+import uvicorn
 from loguru import logger
+from fastapi import FastAPI
+
 app = FastAPI()
 
 
@@ -79,3 +81,12 @@ def get_forks(owner: str, repo: str):
     response = requests.get(url)
     logger.info(f"Fetching forks for {owner}/{repo}")
     return response.json()
+
+
+## Add log in file
+
+logger.add("logs/logs.log")
+
+## Starting uvicorn
+if __name__ == "__main__":
+    uvicorn.run("Check:app", host="127.0.0.3", port=8080, reload=True)
